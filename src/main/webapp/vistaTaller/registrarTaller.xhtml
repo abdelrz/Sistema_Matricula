@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Registrar Taller</title>
+        <link rel="stylesheet" href="/SistemaUniversidad/css/reset.css" />
+        <link rel="stylesheet" href="/SistemaUniversidad/css/header.css" />
+        <link rel="stylesheet" href="/SistemaUniversidad/css/style.css" />
+        <link rel="stylesheet" href="/SistemaUniversidad/css/footer.css" />
+        <link rel="stylesheet" href="/SistemaUniversidad/css/nosotros_y_jsp.css" />
+        <link rel="stylesheet" href="/SistemaUniversidad/css/registrar.css" />
+    </h:head>
+    <h:body>
+        <header class="header-transparente">
+            <div class="caja">
+                <nav>
+                    <ul>
+                        <li>
+                            <div class="dropdown">
+                                <a class="dropbtn">Registrar</a>
+                                <div class="dropdown-content">
+                                    <a href="/SistemaUniversidad/vistaAlumno/registrarAlumno.jsp">Alumno</a>
+                                    <a href="/SistemaUniversidad/vistaDocente/registrarDocente.jsp">Docente</a>
+                                    <a href="/SistemaUniversidad/vistaAsignatura/registrarAsignatura.jsp">Asignatura</a>
+                                    <a href="/SistemaUniversidad/vistaCarreraProfesional/registrarCarreraProfesional.jsp">Carrera profesional</a>
+                                    <a href="#">Taller</a>
+                                    <a href="/SistemaUniversidad/vistaCertificacion/registrarCertificacion.xhtml">Certificaciones</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <a class="dropbtn">Mantenimiento</a>
+                                <div class="dropdown-content">
+                                    <a href="/SistemaUniversidad/vistaAlumno/mantenimientoAlumno.jsp">Alumno</a>
+                                    <a href="/SistemaUniversidad/vistaDocente/mantenimientoDocente.jsp">Docente</a>
+                                    <a href="/SistemaUniversidad/vistaAsignatura/mantenimientoAsignatura.jsp">Asignatura</a>
+                                    <a href="/SistemaUniversidad/vistaCarreraProfesional/mantenimientoCarreraProfesional.jsp">Carrera profesional</a>
+                                    <a></a>
+                                    <a href="http://localhost:8085/listar">Convenios</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <a class="dropbtn">Reportes</a>
+                                <div class="dropdown-content">
+                                    <a href="/SistemaUniversidad/vistaAlumno/reporteAlumno.xhtml">Alumno</a>
+                                    <a href="/SistemaUniversidad/vistaDocente/reporteDocente.jsp">Docente</a>
+                                    <a href="/SistemaUniversidad/vistaAsignatura/reporteAsignatura.jsp">Asignatura</a>
+                                    <a href="/SistemaUniversidad/vistaCarreraProfesional/reporteCarreraProfesional.jsp">Carrera profesional</a>
+                                    <a href="/SistemaUniversidad/vistaMatricula/reporteMatricula.jsp">Matrícula</a>
+                                    <a></a>
+                                    <a href="/SistemaUniversidad/vistaAlumno/graficoAlumno.jsp">Gráfico Alumno</a>
+                                    <a href="/SistemaUniversidad/vistaDocente/graficoDocente.jsp">Gráfico Docente</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <a href="/SistemaUniversidad/vistaMatricula/paginaMatricula.jsp" class="boton-blanco">Matrícula Alumnos</a>
+                        </li>
+                        <li><a href="/SistemaUniversidad/index.html">Inicio</a></li>
+                        <li><a href="/SistemaUniversidad/nosotros.html">Nosotros</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <center>
+
+            <section class="titulo">
+                <div class="banner-wrapper">
+                    <div class="texto">
+                        <h1>Registrar Taller</h1>
+                    </div>
+                </div>
+            </section>
+            <h:form id="fr3">
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <p:commandButton oncomplete="PF('dgadiciona').show()"
+                                 value="Registrar taller"/>      
+            </h:form>    
+            <p:dialog  modal="true" widgetVar="dgadiciona" width="500" height="400" >
+                <h:form id="fr4">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Nombre del taller"/>
+                        <p:inputText value="#{controlTaller.taller.nombre}"/>
+                        <p:outputLabel value="Duración en meses"/>
+                        <p:inputText value="#{controlTaller.taller.duracion}"/>
+                        <p:outputLabel value="Horario"/>
+                        <p:inputText value="#{controlTaller.taller.horario}"/>
+                        <p:outputLabel value="Precio del taller"/>
+                        <p:inputText value="#{controlTaller.taller.monto}"/>
+
+                    </p:panelGrid>   
+                    <p:commandButton value="Grabar" action="#{controlTaller.grabar()}"
+                                     update=":fr1:tabalu,:fr4" oncomplete="PF('dgadiciona').hide()">
+                    </p:commandButton>  
+                </h:form>  
+
+            </p:dialog>
+
+
+
+            <h:form id="fr1" class="table-hover bg-black" >
+                <p:dataTable id="tabalu" value="#{controlTaller.listaller}" var="taller" paginator="true" rows="5" class="table table-hover bg-black">
+                    <p:column headerText="Codigo" class="text-white bg-white">
+                        <p:outputLabel value="#{taller.id}" />
+                    </p:column>
+                    <p:column headerText="Nombre" class="text-white bg-white">
+                        <p:outputLabel value="#{taller.nombre}" />
+                    </p:column>
+                    <p:column headerText="Duración" class="text-white bg-white">
+                        <p:outputLabel value="#{taller.duracion}" />
+                    </p:column>
+                    <p:column headerText="Horario" class="text-white bg-white">
+                        <p:outputLabel value="#{taller.horario}" />
+                    </p:column>
+                    <p:column headerText="Monto" class="text-white bg-white">
+                        <p:outputLabel value="#{taller.monto}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+        </center>
+
+        <footer>
+            <p class="fondo">Todos los derechos reservados</p>
+        </footer>
+    </h:body>
+
+</html>
+
